@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isPossible(string &s , int len , int k){
+
+    }
+    int characterReplacement(string s, int k) {
+        int ans = 0;
+        for(char ch = 'A' ; ch <= 'Z' ; ch++){
+            deque<char>dq;
+            int temp = 0;
+            for(int i = 0 ; i < s.size() ; i++){
+                if(s[i] == ch)dq.push_back(s[i]);
+                else{
+                    if(temp < k){
+                        temp++;
+                        dq.push_back('*');
+                    }
+                    else{
+                        while(!dq.empty() && dq.front() == ch)dq.pop_front();
+                        if(!dq.empty() && dq.front() == '*'){
+                            dq.pop_front();
+                            dq.push_back('*');
+                        }
+                    }
+                }
+                ans = max(ans , int(dq.size()));
+            }
+        }
+        return ans;
+    }
+    
+};
